@@ -1,5 +1,15 @@
 # devTools
 
+## 打包
+> go build main.go
+> command-line-arguments
+> .\main.go:57:7: undefined: InitRouter
+
+
+Windows下编译Mac, Linux平台的64位可执行程序：
+$ SET CGO_ENABLED=0 SET GOOS=darwin3 SET GOARCH=amd64 go build main.go
+$ SET CGO_ENABLED=0 SET GOOS=linux SET GOARCH=amd64 go build main.go
+
 ## 有哪些功能?
 ``` go 
     r.GET("/base64", contoller.Base64, middleware.UsageCount)

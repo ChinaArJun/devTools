@@ -11,6 +11,7 @@ import (
 	"oktools/src/conf"
 	"oktools/src/contoller"
 	"oktools/src/middleware"
+	"oktools/src/router"
 	"os"
 	"time"
 )
@@ -54,7 +55,7 @@ func main() {
 		}()
 	}
 
-	r := initRouter()
+	r := router.InitRouter()
 
 	var err error
 	if gin.Mode() == gin.ReleaseMode {

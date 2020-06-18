@@ -1,4 +1,4 @@
-package main
+package router
 
 import (
 	"github.com/gin-gonic/gin"
@@ -8,7 +8,7 @@ import (
 	"oktools/src/service"
 )
 
-func initRouter() *gin.Engine {
+func InitRouter() *gin.Engine {
 	r := gin.Default()
 
 	r.Static("/static", "./static")
