@@ -49,7 +49,7 @@ func InitRouter() *gin.Engine {
 	r.GET("/pdf2img", contoller.PDF2IMG, middleware.UsageCount)
 
 	r.GET("/websocket", func(c *gin.Context) {
-		c.Redirect(http.StatusMovedPermanently, "http://oktools.net/websocket")
+		c.Redirect(http.StatusMovedPermanently, "http://tools.zhequtao.com/websocket")
 	})
 
 	api := r.Group("/api")

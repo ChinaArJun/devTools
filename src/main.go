@@ -99,7 +99,7 @@ func runNoTLS() {
 				contoller.WebSocket(c)
 				middleware.UsageCount(c)
 			} else {
-				c.Redirect(http.StatusMovedPermanently, "https://oktools.net"+uri)
+				c.Redirect(http.StatusMovedPermanently, "https://tools.zhequtao.com"+uri)
 			}
 		})
 
