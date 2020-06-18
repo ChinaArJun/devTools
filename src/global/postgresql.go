@@ -18,6 +18,6 @@ func init() {
 		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		dbConf.Host, dbConf.Port, dbConf.Username, dbConf.Password, dbConf.DbName))
 	if err != nil {
-		log.Fatalln(err)
+		log.Fatalln("Open SqlErr:", err)
 	}
 }

@@ -29,7 +29,7 @@ var ToolMap = make(map[string]*Tool)
 // 全部工具内存缓存
 var toolsCache *Cache
 
-func GetTools() [] *Tool {
+func GetTools() []*Tool {
 	now := time.Now()
 	if toolsCache == nil || toolsCache.Expir.Before(now) {
 		tools, err := loadTools()
@@ -43,10 +43,10 @@ func GetTools() [] *Tool {
 		toolsCache.Expir = now.Add(toolsCacheAge)
 		return tools
 	}
-	return toolsCache.Data.([] *Tool)
+	return toolsCache.Data.([]*Tool)
 }
 
-func loadTools() ([] *Tool, error) {
+func loadTools() ([]*Tool, error) {
 	rows, err := global.DB.Query(`SELECT path,title,icon,usage_count,category FROM tools ORDER  BY usage_count desc`)
 	if err != nil {
 		return nil, err
@@ -101,6 +101,6 @@ func UpdateUsageCount() {
 func init() {
 	_, err := loadTools()
 	if err != nil {
-		log.Fatalln(err)
+		log.Fatalln("loadTools:", err)
 	}
 }
