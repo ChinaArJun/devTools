@@ -59,7 +59,7 @@ func main() {
 
 	var err error
 	if gin.Mode() == gin.ReleaseMode {
-		serverChan("OkTools server started")
+		serverChan("DevTools server started")
 
 		runNoTLS()
 		err = r.RunTLS(":"+conf.Conf.Http.Port, conf.Conf.Http.SSL.Crt, conf.Conf.Http.SSL.Key)
@@ -69,7 +69,7 @@ func main() {
 
 	if err != nil {
 		if gin.Mode() == gin.ReleaseMode {
-			serverChan("OkTools server stopped")
+			serverChan("DevTools server stopped")
 		}
 		log.Fatalln("Something terrible happened:", err)
 	}
