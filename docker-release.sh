@@ -75,10 +75,9 @@ echo  $DEV_REMOTE_HOST $TAG_VERSION
 
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build ./src/main.go
 docker build -t $IMAGE_REPOSITORY:$TAG_VERSION ./
-rm -f ./main
-##docker images|grep none|awk '{print $3 }'|xargs docker rmi
-chmod 0600 $IDRSA_PATH
-
+#rm -f ./main
+#chmod 0600 $IDRSA_PATH
+#
 #检查文件或者文件夹是否存在，如果存在则删除
 # $1--需要检查的文件
 function checkFileExists(){
@@ -104,7 +103,7 @@ function pushDevDocker(){
   docker rm -f ${IMAGE_REPOSITORY} || true
   docker load <  $IMAGE_REPOSITORY:$TAG_VERSION
   rm -f ./$IMAGE_REPOSITORY:$TAG_VERSION
-  cd /home/docker
+  cd /data/docker
   docker-compose down
   docker-compose up -d
   docker exec -it $IMAGE_REPOSITORY /bin/sh
