@@ -47,6 +47,7 @@ func InitRouter() *gin.Engine {
 	r.GET("/json2xml", contoller.JSON2XML, middleware.UsageCount)
 	r.GET("/json2yaml", contoller.JSON2YAML, middleware.UsageCount)
 	r.GET("/pdf2img", contoller.PDF2IMG, middleware.UsageCount)
+	r.GET("/fund", contoller.FundIndex, middleware.UsageCount)
 
 	r.GET("/websocket", func(c *gin.Context) {
 		c.Redirect(http.StatusMovedPermanently, "http://tools.zhequtao.com/websocket")

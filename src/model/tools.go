@@ -47,7 +47,7 @@ func GetTools() []*Tool {
 }
 
 func loadTools() ([]*Tool, error) {
-	rows, err := global.DB.Query(`SELECT path,title,icon,usage_count,category FROM tools ORDER  BY usage_count desc`)
+	rows, err := global.PSDB.Query(`SELECT path,title,icon,usage_count,category FROM tools ORDER  BY usage_count desc`)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +90,7 @@ func UpdateUsageCount() {
 	buf.WriteString("'')")
 
 	sql := buf.String()
-	_, err := global.DB.Exec(sql)
+	_, err := global.PSDB.Exec(sql)
 	if err != nil {
 		log.Println("Failed to update tools usage count data :", err)
 	}

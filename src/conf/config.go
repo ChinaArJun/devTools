@@ -20,13 +20,26 @@ type Config struct {
 			Key    string `yaml:"key"`
 		} `yaml:"ssl"`
 	} `yaml:"http"`
-	DataBase struct {
+	Postgresdb struct {
 		Host     string `yaml:"host"`
 		Port     string `yaml:"port"`
 		Username string `yaml:"username"`
 		Password string `yaml:"password"`
 		DbName   string `yaml:"dbname"`
-	} `yaml:"database"`
+		MaxId    string `yaml:"maxId"`
+		MaxOpen  string `yaml:"maxOpen"`
+		Log      string `yaml:"log"`
+	} `yaml:"postgresdb"`
+	Mysqldb struct {
+		Host     string `yaml:"host"`
+		Port     string `yaml:"port"`
+		Username string `yaml:"username"`
+		Password string `yaml:"password"`
+		DbName   string `yaml:"dbname"`
+		MaxId    string `yaml:"maxId"`
+		MaxOpen  string `yaml:"maxOpen"`
+		Log      string `yaml:"log"`
+	} `yaml:"mysqldb"`
 	ThirdParty struct {
 		Amap struct {
 			Key string `yaml:"key"`

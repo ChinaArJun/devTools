@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON格式化 - 在线工具 - OKTools</title>
+    <meta name="keywords" content="JSON,JSON解析,JSON格式化,JSON编辑">
+    <meta name="description" content="在线JSON格式化工具,JSON解析,JSON格式化,JSON编辑">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="https://cdn.bootcss.com/font-awesome/5.10.0-11/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css">
+    <link href="https://cdn.bootcss.com/jsoneditor/6.1.0/jsoneditor.min.css" rel="stylesheet" type="text/css">
+    <style>
+        .container {
+            max-width: 100%;
+        }
+
+        .jsoneditor-poweredBy {
+            display: none;
+        }
+
+        div.jsoneditor-menu, .jsoneditor-modal .pico-modal-header {
+            background-color: #6c928c;
+        }
+
+        div.jsoneditor, div.jsoneditor-menu {
+            border: 1px solid #6c928c;
+        }
+    </style>
+</head>
+<body>
+<aside>
+    <h1 class="logo"><a href="/json">DevTools</a></h1>
+    <h1 class="logo"><a >每日股票数据汇总</a></h1>
+
+{{/*    <div class="container tools">*/}}
+{{/*        {{range .times}}<a class="tool" href="{{.Time}}"><p>{{.Time}}</p>*/}}
+{{/*            <p>https://oktools.net{{.Path}}</p></a>{{end}}*/}}
+{{/*    </div>*/}}
+    <nav class="side-nav">
+
+        <p>JSON</p>
+        <ul>
+{{/*            {{range .times}}<li class="tool" href="https://fund.zhequtao.com/?time={{.Time}}"><p>{{ .Time}}</p>*/}}
+            {{range .times}}<li class="tool" href="http://localhost:8999/?time={{.Time}}"><p>{{ .Time}}</p>
+            </li>{{end}}
+{{/*            <li><a href="/json">{{ .times}}</a></li>*/}}
+            <li><a href="/json2xml">JSON/XML转换</a></li>
+            <li><a href="/json2yaml">JSON/YAML转换</a></li>
+        </ul>
+        <p>Base64</p>
+        <ul>
+            <li><a href="/base64">Base64编码解码</a></li>
+            <li><a href="/image2base64">图片Base64编码</a></li>
+        </ul>
+    </nav>
+</aside>
+<script>
+    var _hmt = _hmt || [];
+    let hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?e3d5bc397b23c3f6a8036739dae1557b";
+    let s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+
+    let tools = document.querySelectorAll('.side-nav li');
+    for (let i = 0; i < tools.length; i++) {
+        let node = tools[i];
+        if (node.querySelector('a').getAttribute('href').endsWith(document.location.pathname)) {
+            node.classList.add('active');
+            break
+        }
+    }
+</script>
+<main>
+    <div class="container">
+        <h1>JSON格式化</h1>
+        <div class="flex mt1">
+
+        </div>
+    </div>
+</main>
+<script src="https://cdn.bootcss.com/jsoneditor/6.1.0/jsoneditor.min.js"></script>
+<script>
+    const json_editor = new JSONEditor(document.getElementById("json_editor"), {mode: 'code'});
+    const tree_editor = new JSONEditor(document.getElementById("tree_editor"), null);
+    json_editor.setText(null);
+
+    function toTree() {
+        json_editor.format();
+        tree_editor.set(JSON.parse(json_editor.getText()));
+        tree_editor.expandAll();
+    }
+
+    function toJson() {
+        json_editor.setText(JSON.stringify(tree_editor.get(), null, 2))
+    }
+
+    function cleanup() {
+        json_editor.setText('');
+        tree_editor.set(undefined)
+    }
+</script>
+</body>
+</html>
