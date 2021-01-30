@@ -2,6 +2,7 @@ package contoller
 
 import (
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 	"oktools/src/model"
 	"time"
@@ -33,14 +34,14 @@ func GetTimes() []struct{ Time string } {
 }
 
 func GetFunds(c *gin.Context) []model.Fund {
+	timeStr := c.Query("time")
+	log.Print("GetFunds_Time", timeStr)
 	searchMaps := make(map[string]string)
-	searchMaps[""] = c.Query("time")
-	searchMaps[""] = ""
-	searchMaps[""] = ""
-	searchMaps[""] = ""
+	searchMaps["enddate"] = timeStr
+	searchMaps["order_by"] = "enddate desc"
 
 	fund := model.GetFund()
-	res, err := fund.List(searchMaps, 0, 0)
+	res, err := fund.List(searchMaps, 0, 100)
 	if err != nil {
 		return nil
 	}

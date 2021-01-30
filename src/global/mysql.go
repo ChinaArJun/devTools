@@ -32,10 +32,10 @@ type SqlConn struct {
 }
 
 func init() {
-	SqlDB = Connect()
+	SqlDB.Connect()
 }
 
-func Connect() (obj SqlConn) {
+func (obj *SqlConn)Connect() {
 	dbConf := conf.Conf.Mysqldb
 
 	var err error
@@ -47,7 +47,10 @@ func Connect() (obj SqlConn) {
 	log.Println(sqlStr)
 	obj.Database = dbConf.DbName
 	obj.Conn, err = gorm.Open("mysql", sqlStr)
-
+	if err != nil {
+		fmt.Println(err.Error())
+		panic("数据库启动失败:" + err.Error())
+	}
 	intType, err := strconv.Atoi(dbConf.MaxId)
 	if err != nil {
 		obj.Conn.DB().SetMaxIdleConns(intType)
@@ -84,12 +87,10 @@ func Connect() (obj SqlConn) {
 	//	//row.Scan(...)
 	//}
 	//rows.Close()
-
-	return obj
 }
-func (obj *SqlConn) Close() {
-	obj.Conn.Close()
-}
+//func (obj *SqlConn) Close() {
+//	obj.Conn.Close()
+//}
 
 func (obj *SqlConn) GetConn() *gorm.DB {
 	return obj.Conn

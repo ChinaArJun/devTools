@@ -1,13 +1,92 @@
 package model
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/jinzhu/gorm"
 	. "oktools/src/global"
-	"strconv"
 	"time"
 )
 
+type FundDataGenerated struct {
+	Data       FundData `json:"data"`
+	ResultCode int      `json:"result_code"`
+}
+type StockList struct {
+	Name             string  `json:"name"`
+	Code             string  `json:"code"`
+	Percent          float64 `json:"percent"`
+	CurrentPrice     float64     `json:"current_price"`
+	ChangePercentage float64 `json:"change_percentage"`
+	XqSymbol         string  `json:"xq_symbol"`
+	XqURL            string  `json:"xq_url"`
+	Amarket          bool    `json:"amarket"`
+}
+type FundPosition struct {
+	StockPercent float64       `json:"stock_percent"`
+	CashPercent  float64       `json:"cash_percent"`
+	OtherPercent float64       `json:"other_percent"`
+	AssetTot     float64       `json:"asset_tot"`
+	AssetVal     float64       `json:"asset_val"`
+	SourceMark   string        `json:"source_mark"`
+	Source       string        `json:"source"`
+	Enddate      string        `json:"enddate"`
+	StockList    []StockList   `json:"stock_list"`
+	BondList     []interface{} `json:"bond_list"`
+}
+type DeclareRateTable struct {
+	Name  string `json:"name"`
+	Value string `json:"value"`
+}
+type WithdrawRateTable struct {
+	Name  string `json:"name"`
+	Value string `json:"value"`
+}
+type OtherRateTable struct {
+	Name  string `json:"name"`
+	Value string `json:"value"`
+}
+type FundRates struct {
+	FdCode            string              `json:"fd_code"`
+	SubscribeRate     string              `json:"subscribe_rate"`
+	DeclareRate       string              `json:"declare_rate"`
+	WithdrawRate      string              `json:"withdraw_rate"`
+	Discount          string              `json:"discount"`
+	SubscribeDiscount string              `json:"subscribe_discount"`
+	DeclareDiscount   string              `json:"declare_discount"`
+	DeclareRateTable  []DeclareRateTable  `json:"declare_rate_table"`
+	WithdrawRateTable []WithdrawRateTable `json:"withdraw_rate_table"`
+	OtherRateTable    []OtherRateTable    `json:"other_rate_table"`
+}
+type AchievementList struct {
+	FundCode  string  `json:"fund_code"`
+	Fundsname string  `json:"fundsname"`
+	PostDate  string  `json:"post_date"`
+	CpRate    float64 `json:"cp_rate"`
+	ResiDate  string  `json:"resi_date,omitempty"`
+}
+type ManagerList struct {
+	Name            string            `json:"name"`
+	Resume          string            `json:"resume"`
+	College         string            `json:"college"`
+	AchievementList []AchievementList `json:"achievement_list"`
+}
+type FundDateConf struct {
+	FdCode          string `json:"fd_code"`
+	BuyConfirmDate  int    `json:"buy_confirm_date"`
+	BuyQueryDate    int    `json:"buy_query_date"`
+	SaleConfirmDate int    `json:"sale_confirm_date"`
+	SaleQueryDate   int    `json:"sale_query_date"`
+	AllBuyDays      int    `json:"all_buy_days"`
+	AllSaleDays     int    `json:"all_sale_days"`
+}
+type FundData struct {
+	FundCompany  string        `json:"fund_company"`
+	FundPosition FundPosition  `json:"fund_position"`
+	FundRates    FundRates     `json:"fund_rates"`
+	ManagerList  []ManagerList `json:"manager_list"`
+	FundDateConf FundDateConf  `json:"fund_date_conf"`
+}
 type Fund struct {
 	/*
 	  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -22,20 +101,21 @@ type Fund struct {
 	  `deleted_at` timestamp NULL DEFAULT NULL COMMENT '删除时间',
 	*/
 
-	CpcnpaySrcsrl       string `json:"cpcnpay_srcsrl"`        // 中金支付绑卡交易流水号
-	CpcnpayTxsn         string `json:"cpcnpay_txsn"`          // 中金绑卡平台方交易流水号
-	CpcnpayVerifyStatus int64  `json:"cpcnpay_verify_status"` // 中金绑卡验证状态（0待验证 1通过 2失效）
-	CpcnpayDefault      int64  `json:"cpcnpay_default"`       // 中金是否默认银行卡（0否 1是）
+	FundName   string `json:"fund_name"`
+	FundCode   string `json:"fund_code"`
+	Managers   string `json:"managers"`
+	Enddate    string `json:"enddate"`
+	Type       string `json:"type"`
+	DetailJson string `json:"detail_json"`
 
 	ID        int64      `json:"id" gorm:"primary_key"`
 	CreatedAt JSONTime   `json:"created_at" gorm:"column:created_at"` //创建日期
 	UpdatedAt time.Time  `json:"-" gorm:"column:updated_at"`
 	DeletedAt *time.Time `json:"-" gorm:"column:deleted_at" sql:"index"`
 
-	//方便做复杂数据及复杂逻辑 可以做数据回滚
 	DB *gorm.DB `json:"-" gorm:"-"` // 数据库操作DB
 
-	VerifyStatusShow string `json:"verify_status_show" gorm:"-"` //验证状态中文
+	FundDataShow FundDataGenerated `json:"fund_data_show" gorm:"-"`
 }
 
 /**
@@ -45,6 +125,11 @@ func (obj *Fund) Init() {
 	if obj == nil {
 		return
 	}
+	err := json.Unmarshal([]byte(obj.DetailJson), &obj.FundDataShow)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
 	return
 }
 
@@ -109,99 +194,11 @@ func (obj *Fund) Delete(id int64) (err error) {
 	return
 }
 
-//根据公司id查询账户
-func (obj *Fund) GetFundByCompanyId(companyId int64) (err error) {
-	err = obj.getDB().Where("company_id = ?", companyId).First(&obj).Error
-
-	if err == nil {
-		obj.Init()
-	}
-	return
-}
-
-func (obj *Fund) GetByBankCardNum(bankNum string) (err error) {
-	err = obj.getDB().Where("bank_card_num = ?", bankNum).First(&obj).Error
-	if err == nil {
-		obj.Init()
-	}
-	return
-}
-
 func (obj *Fund) GetCompanyByBankCardNum(company_id int64, bankNum string) (err error) {
 	searchMap := make(map[string]string)
-	searchMap["bank_card_num"] = bankNum
+	searchMap["bd_num"] = bankNum
 
 	err = obj.QueryOneByCondition(searchMap)
-	return
-}
-
-func (obj *Fund) GetFundByDepositBank(company_id, verify_status int64, deposit_bank string) (err error) {
-	searchMap := make(map[string]string)
-	searchMap["company_id"] = strconv.FormatInt(company_id, 10)
-	searchMap["verify_status"] = strconv.FormatInt(verify_status, 10)
-	searchMap["deposit_bank_like"] = deposit_bank
-
-	err = obj.QueryOneByCondition(searchMap)
-
-	return
-}
-
-func (obj *Fund) GetByCfcaBankCardNum(bankNum string, verifyStatus int64) (err error) {
-	searchMap := make(map[string]string)
-	searchMap["bank_card_num"] = bankNum
-	searchMap["cpcnpay_verify_status"] = strconv.FormatInt(verifyStatus, 10)
-	searchMap["cpcnpay_srcsrl_is_not_null"] = "notNull"
-	searchMap["cpcnpay_srcsrl_is_not_empty"] = "notEmpty"
-
-	err = obj.QueryOneByCondition(searchMap)
-
-	return
-}
-
-func (obj *Fund) GetCfcacount(companyId, verifyStatus int64) (err error) {
-	searchMap := make(map[string]string)
-	searchMap["company_id"] = strconv.FormatInt(companyId, 10)
-	searchMap["cpcnpay_verify_status"] = strconv.FormatInt(verifyStatus, 10)
-	searchMap["cpcnpay_srcsrl_is_not_null"] = "notNull"
-	searchMap["cpcnpay_srcsrl_is_not_empty"] = "notEmpty"
-
-	err = obj.QueryOneByCondition(searchMap)
-
-	return
-}
-
-func (obj *Fund) GetCfcaDefaultAcount(companyId, verifyStatus, defaultStatus int64) (err error) {
-	searchMap := make(map[string]string)
-	searchMap["company_id"] = strconv.FormatInt(companyId, 10)
-	searchMap["cpcnpay_verify_status"] = strconv.FormatInt(verifyStatus, 10)
-	searchMap["cpcnpay_default"] = strconv.FormatInt(defaultStatus, 10)
-	searchMap["cpcnpay_srcsrl_is_not_null"] = "notNull"
-	searchMap["cpcnpay_srcsrl_is_not_empty"] = "notEmpty"
-
-	err = obj.QueryOneByCondition(searchMap)
-
-	return
-}
-
-func (obj *Fund) GetFundBankList(company_id, verify_status int64) (result []Fund, err error) {
-	searchMap := make(map[string]string)
-	searchMap["company_id"] = strconv.FormatInt(company_id, 10)
-	searchMap["cpcnpay_verify_status"] = strconv.FormatInt(verify_status, 10)
-	searchMap["order_by"] = "id asc"
-
-	result, err = obj.List(searchMap, 0, 0)
-
-	return
-}
-
-func (obj *Fund) GetCompanyFastPayAccountBankList(company_id, verify_status int64) (result []Fund, err error) {
-	searchMap := make(map[string]string)
-	searchMap["company_id"] = strconv.FormatInt(company_id, 10)
-	searchMap["cpcnfastpay_verify_status"] = strconv.FormatInt(verify_status, 10)
-	searchMap["order_by"] = "id asc"
-
-	result, err = obj.List(searchMap, 0, 0)
-
 	return
 }
 

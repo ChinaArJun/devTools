@@ -30,20 +30,21 @@
 <body>
 <aside>
     <h1 class="logo"><a href="/json">DevTools</a></h1>
-    <h1 class="logo"><a >每日股票数据汇总</a></h1>
-
-{{/*    <div class="container tools">*/}}
-{{/*        {{range .times}}<a class="tool" href="{{.Time}}"><p>{{.Time}}</p>*/}}
-{{/*            <p>https://oktools.net{{.Path}}</p></a>{{end}}*/}}
-{{/*    </div>*/}}
+    <h1 class="logo"><a href="/fund">基金最新持仓变动</a></h1>
+    {{/*    <div class="container tools">*/}}
+    {{/*        {{range .times}}<a class="tool" href="{{.Time}}"><p>{{.Time}}</p>*/}}
+    {{/*            <p>https://oktools.net{{.Path}}</p></a>{{end}}*/}}
+    {{/*    </div>*/}}
     <nav class="side-nav">
 
         <p>JSON</p>
         <ul>
-{{/*            {{range .times}}<li class="tool" href="https://fund.zhequtao.com/?time={{.Time}}"><p>{{ .Time}}</p>*/}}
-            {{range .times}}<li class="tool" href="http://localhost:8999/?time={{.Time}}"><p>{{ .Time}}</p>
-            </li>{{end}}
-{{/*            <li><a href="/json">{{ .times}}</a></li>*/}}
+            {{/*            {{range .times}}<li class="tool" href="https://fund.zhequtao.com/?time={{.Time}}"><p>{{ .Time}}</p>*/}}
+            {{range .times}}
+                <li class="tool" href="/fund?time={{.Time}}">
+                    <a href="/fund?time={{.Time}}">{{ .Time}}</a>
+                </li>{{end}}
+            {{/*            <li><a href="/json">{{ .times}}</a></li>*/}}
             <li><a href="/json2xml">JSON/XML转换</a></li>
             <li><a href="/json2yaml">JSON/YAML转换</a></li>
         </ul>
@@ -54,6 +55,66 @@
         </ul>
     </nav>
 </aside>
+<main>
+    <div class="container">
+        <h1>股票持仓数据</h1>
+        <div class="flex mt1">
+            <ul>
+                {{range .funds}}
+                    <li>
+                        <p style="color: #ff3860">基金名称: {{ .FundName}}</p>
+                        <p>基金代码: {{ .FundCode}}</p>
+                        <p style="color: deeppink">基金经理: {{ .Managers}}</p>
+                        <p>更新日期: {{ .Enddate}}</p>
+
+                        <div>
+{{/*                            <table border="1">*/}}
+                            <table border="0.5">
+                                {{range  .FundDataShow.Data.FundPosition.StockList}}
+                                    <td>
+                                        <p>持仓名称：<br><a href={{ .XqURL }}>{{ .Name}}</a></p>
+                                        <p>股票代码：<p style="color: red">{{ .Code}}</p></p>
+                                        <p>持仓比例：<p style="color: red">%{{ .Percent}}</p></p>
+                                        <p>当前价格：<p style="color: red">{{ .CurrentPrice}}</p></p>
+                                        <p>股价变动：<p style="color: red">{{ .ChangePercentage}}</p></p>
+{{/*                                        <p>当前价格：{{ .CurrentPrice}}</p>*/}}
+{{/*                                        <p>股价变动: {{ .ChangePercentage}}</p>*/}}
+                                        <p>备注说明: {{ .XqSymbol}}</p>
+{{/*                                        <a href={{ .XqURL }}>{{ .XqURL }}<a/>*/}}
+                                    <td/>
+                                {{end}}
+                            </table>
+                        </div>
+
+                        <br>
+                        <br>
+                    </li>{{end}}
+
+            </ul>
+            {{/*            <ul>*/}}
+            {{/*                {{range .funds}}*/}}
+            {{/*                <li border="1">*/}}
+            {{/*                    */}}{{/*                    <li class="tool" href="http://localhost:8999/?time={{.Time}}">*/}}
+            {{/*                    <p>基金名称: {{ .FundName}}</p>*/}}
+            {{/*                    <p>基金代码: {{ .FundCode}}</p>*/}}
+            {{/*                    {{range  .FundDataShow.Data.FundPosition.StockList}}*/}}
+            {{/*                    <li>*/}}
+            {{/*                        <div>*/}}
+            {{/*                            <p>持仓名称：{{ .Name}}</p>*/}}
+            {{/*                            <p>持仓代号：{{ .Code}}</p>*/}}
+            {{/*                            <p>持仓比例：{{ .Percent}}</p>*/}}
+            {{/*                            <p>当前价格：{{ .CurrentPrice}}</p>*/}}
+            {{/*                            <p>股价变动: {{ .ChangePercentage}}</p>*/}}
+            {{/*                            <p>股价变动: {{ .XqSymbol}}</p>*/}}
+            {{/*                            <a href={{ .XqURL }}>查看: {{ .XqURL}}</a>*/}}
+            {{/*                        </div>*/}}
+            {{/*                    </li>{{end}}*/}}
+            {{/*            </li>{{end}}*/}}
+            {{/*            </ul>*/}}
+        </div>
+    </div>
+</main>
+<script src="https://cdn.bootcss.com/jsoneditor/6.1.0/jsoneditor.min.js"></script>
 <script>
     var _hmt = _hmt || [];
     let hm = document.createElement("script");
@@ -70,15 +131,6 @@
         }
     }
 </script>
-<main>
-    <div class="container">
-        <h1>JSON格式化</h1>
-        <div class="flex mt1">
-
-        </div>
-    </div>
-</main>
-<script src="https://cdn.bootcss.com/jsoneditor/6.1.0/jsoneditor.min.js"></script>
 <script>
     const json_editor = new JSONEditor(document.getElementById("json_editor"), {mode: 'code'});
     const tree_editor = new JSONEditor(document.getElementById("tree_editor"), null);

@@ -1,0 +1,9 @@
+version: '2.2'
+services:
+  oktools:
+    image: oktools:v1.0-master
+    volumes:
+      - '/data/wwwroot/tools.zhequtao.com/:/home/'
+    container_name: oktools
+    ports:
+      - '81:81'
