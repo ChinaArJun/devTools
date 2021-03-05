@@ -122,6 +122,10 @@ func Unicode(c *gin.Context) {
 	c.HTML(http.StatusOK, "unicode.html", nil)
 }
 
+func MYSQLGO(c *gin.Context) {
+	c.HTML(http.StatusOK, "mysqlgo.html", nil)
+}
+
 func JSON2GO(c *gin.Context) {
 	c.HTML(http.StatusOK, "json2go.html", nil)
 }
@@ -140,4 +144,9 @@ func PDF2IMG(c *gin.Context) {
 
 func Clocks(c *gin.Context) {
 	c.HTML(http.StatusOK, "clocks.html", nil)
+}
+
+func Xinpianchang(c *gin.Context) {
+
+	c.HTML(http.StatusOK, "xinpianchang.html", nil)
 }

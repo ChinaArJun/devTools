@@ -4,3 +4,5 @@
 build/
 script/release.go
 conf.yaml
+main
+oktools*

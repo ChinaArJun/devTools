@@ -17,6 +17,9 @@ func init() {
 		for {
 			select {
 			case path := <-channel:
+				if path == "/mysqlgo" {
+					return
+				}
 				// 使用次数 +1
 				model.ToolMap[path].UsageCount++
 			case <-timer.C:

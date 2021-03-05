@@ -43,11 +43,12 @@ func InitRouter() *gin.Engine {
 	r.GET("/morse", contoller.Morse, middleware.UsageCount)
 	r.GET("/url", contoller.URL, middleware.UsageCount)
 	r.GET("/unicode", contoller.Unicode, middleware.UsageCount)
+	r.GET("/mysqlgo", contoller.MYSQLGO, middleware.UsageCount)
 	r.GET("/json2go", contoller.JSON2GO, middleware.UsageCount)
 	r.GET("/json2xml", contoller.JSON2XML, middleware.UsageCount)
 	r.GET("/json2yaml", contoller.JSON2YAML, middleware.UsageCount)
 	r.GET("/pdf2img", contoller.PDF2IMG, middleware.UsageCount)
-
+	r.GET("/xinpianchang", contoller.Xinpianchang, middleware.UsageCount)
 	r.GET("/websocket", func(c *gin.Context) {
 		c.Redirect(http.StatusMovedPermanently, "http://tools.zhequtao.com/websocket")
 	})

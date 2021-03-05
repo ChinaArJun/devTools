@@ -9,6 +9,7 @@
 Windows下编译Mac, Linux平台的64位可执行程序：
 $ SET CGO_ENABLED=0 SET GOOS=darwin3 SET GOARCH=amd64 go build main.go
 $ SET CGO_ENABLED=0 SET GOOS=linux SET GOARCH=amd64 go build main.go
+$  CGO_ENABLED=0  GOOS=linux  GOARCH=amd64 go build ./src/main.go
 
 ## 有哪些功能?
 ``` go 
