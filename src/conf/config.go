@@ -20,13 +20,23 @@ type Config struct {
 			Key    string `yaml:"key"`
 		} `yaml:"ssl"`
 	} `yaml:"http"`
-	DataBase struct {
+	Postgresdb struct {
 		Host     string `yaml:"host"`
 		Port     string `yaml:"port"`
 		Username string `yaml:"username"`
 		Password string `yaml:"password"`
 		DbName   string `yaml:"dbname"`
-	} `yaml:"database"`
+	} `yaml:"postgresdb"`
+	Mysqldb struct {
+		Host     string `yaml:"host"`
+		Port     string `yaml:"port"`
+		Username string `yaml:"username"`
+		Password string `yaml:"password"`
+		DbName   string `yaml:"dbname"`
+		MaxId    string `yaml:"maxId"`
+		MaxOpen  string `yaml:"maxOpen"`
+		Log      string `yaml:"log"`
+	} `yaml:"mysqldb"`
 	ThirdParty struct {
 		Amap struct {
 			Key string `yaml:"key"`
@@ -36,6 +46,37 @@ type Config struct {
 		} `yaml:"serverchan"`
 	} `yaml:"third-party"`
 }
+
+//
+//type Config struct {
+//	App struct {
+//		Mode    string `yaml:"mode"`
+//		LogFile string `yaml:"log-file"`
+//	} `yaml:"app"`
+//	Http struct {
+//		Port string `yaml:"port"`
+//		SSL  struct {
+//			Enable bool   `yaml:"enable"`
+//			Crt    string `yaml:"crt"`
+//			Key    string `yaml:"key"`
+//		} `yaml:"ssl"`
+//	} `yaml:"http"`
+//	Database struct {
+//		Host     string `yaml:"host"`
+//		Port     string `yaml:"port"`
+//		Username string `yaml:"username"`
+//		Password string `yaml:"password"`
+//		DbName   string `yaml:"dbname"`
+//	} `yaml:"database"`
+//	ThirdParty struct {
+//		Amap struct {
+//			Key string `yaml:"key"`
+//		} `yaml:"amap"`
+//		ServerChan struct {
+//			Key string `yaml:"key"`
+//		} `yaml:"serverchan"`
+//	} `yaml:"third-party"`
+//}
 
 var Conf = &Config{}
 

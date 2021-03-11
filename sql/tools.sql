@@ -17,9 +17,9 @@
 
 
 -- ----------------------------
--- Table structure for tools
+-- Table structure for toolshttps://item.m.jd.com/product/10024996935738.html?wxa_abtest=o&utm_source=iosapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=CopyURL&ad_od=share
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."tools";
+DROP Thttps://item.m.jd.com/product/10023423161006.html?wxa_abtest=o&utm_source=iosapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=CopyURL&ad_od=shareABLE IF EXISTS "public"."tools";
 CREATE TABLE "public"."tools" (
   "path" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "title" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
@@ -57,7 +57,7 @@ INSERT INTO "public"."tools" VALUES ('/tinyimg', '图片压缩', NULL, 0, 0);
 INSERT INTO "public"."tools" VALUES ('/json2xml', 'JSON/XML转换', NULL, 0, 0);
 INSERT INTO "public"."tools" VALUES ('/clocks', 'CSS时钟', NULL, 0, 0);
 INSERT INTO "public"."tools" VALUES ('/pdf2img', 'PDF转图片', NULL, 0, 0);
-
+INSERT INTO "public"."tools" VALUES ('/fund', '基金数据', NULL, 0, 0);
 -- ----------------------------
 -- Primary Key structure for table tools
 -- ----------------------------
