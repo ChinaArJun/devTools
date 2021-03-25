@@ -1,5 +1,6 @@
 app:
-  mode: debug
+#  mode: debug
+  mode: release
   log-file: oktools.log
 
 http:
@@ -8,16 +9,25 @@ http:
     enable: false
     crt:
     key:
-
-database:
+postgresdb:
   host: 127.0.0.1
   port: 5432
-  username: 
-  password: 
-  dbname: 
+  username:
+  password:
+  dbname: devtools
+
+mysqldb:
+  host: 127.0.01
+  port: 3306
+  username: root
+  password:
+  dbname: fund
+  maxId: 10
+  maxOpen: 100
+  log: 1
 
 third-party:
   amap:
-    key: 
+    key:
   serverchan:
-    key: 
+    key:

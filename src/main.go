@@ -99,11 +99,11 @@ func runNoTLS() {
 				contoller.WebSocket(c)
 				middleware.UsageCount(c)
 			} else {
-				c.Redirect(http.StatusMovedPermanently, "https://tools.zhequtao.com"+uri)
+				c.Redirect(http.StatusMovedPermanently, "/websocket"+uri)
 			}
 		})
 
-		err := e.Run(":80")
+		err := e.Run(":" + conf.Conf.Http.Port)
 		if err != nil {
 			log.Fatalln("Something terrible happened:", err)
 		}

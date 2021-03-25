@@ -52,7 +52,7 @@ func InitRouter() *gin.Engine {
 
 	r.GET("/xinpianchang", contoller.Xinpianchang, middleware.UsageCount)
 	r.GET("/websocket", func(c *gin.Context) {
-		c.Redirect(http.StatusMovedPermanently, "http://tools.zhequtao.com/websocket")
+		c.Redirect(http.StatusMovedPermanently, "/websocket")
 	})
 
 	api := r.Group("/api")
