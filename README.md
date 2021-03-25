@@ -1,19 +1,16 @@
-# devTools
+# devTools - golang程序员利器
+> 工具的初衷，最大化减少重复性劳动
 
-## 打包
-> go build main.go
-> command-line-arguments
-> .\main.go:57:7: undefined: InitRouter
+## 效果预览
+> json转golang struct
+![img](./asset/json.png)
+> mysql转golang struct
+![img](./asset/mysql.png)
 
-
-Windows下编译Mac, Linux平台的64位可执行程序：
-$ SET CGO_ENABLED=0 SET GOOS=darwin3 SET GOARCH=amd64 go build main.go
-$ SET CGO_ENABLED=0 SET GOOS=linux SET GOARCH=amd64 go build main.go
-$  CGO_ENABLED=0  GOOS=linux  GOARCH=amd64 go build ./src/main.go
 
 ## 有哪些功能?
 ``` go 
-    r.GET("/base64", contoller.Base64, middleware.UsageCount)
+      r.GET("/base64", contoller.Base64, middleware.UsageCount)
 	r.GET("/image2base64", contoller.Image2Base64, middleware.UsageCount)
 	r.GET("/tinyimg", contoller.TinyImage, middleware.UsageCount)
 	r.GET("/hash", contoller.Hash, middleware.UsageCount)
@@ -37,4 +34,14 @@ $  CGO_ENABLED=0  GOOS=linux  GOARCH=amd64 go build ./src/main.go
 	r.GET("/json2yaml", contoller.JSON2YAML, middleware.UsageCount)
 	r.GET("/pdf2img", contoller.PDF2IMG, middleware.UsageCount)
 ```
-	
+
+## 打包
+> go build main.go
+> command-line-arguments
+> .\main.go:57:7: undefined: InitRouter
+
+
+> Windows下编译Mac, Linux平台的64位可执行程序：
+* $ SET CGO_ENABLED=0 SET GOOS=darwin3 SET GOARCH=amd64 go build main.go
+* $ SET CGO_ENABLED=0 SET GOOS=linux SET GOARCH=amd64 go build main.go
+* $ CGO_ENABLED=0  GOOS=linux  GOARCH=amd64 go build ./src/main.go
