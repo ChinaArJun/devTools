@@ -47,5 +47,5 @@
 * $ CGO_ENABLED=0  GOOS=linux  GOARCH=amd64 go build ./src/main.go
 
 ## 参考
-[tools](https://github.com/wangyiwy/oktools)
-[mysql()
+* [tools](https://github.com/wangyiwy/oktools)
+* [mysql](https://github.com)
