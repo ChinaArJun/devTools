@@ -8,7 +8,7 @@ FROM docker.io/jeanblanchard/alpine-glibc AS final
 
 WORKDIR /app
 COPY ./main                 /app/main
-COPY ./conf.yaml               /app/
+#COPY ./conf.yaml               /app/
 COPY ./static              /app/static
 COPY ./tpl             /app/tpl
 
