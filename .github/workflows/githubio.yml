@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: GoModules
+      run: go env -w GO111MODULE=auto
     - name: BuildDockerImage
       run: docker build . --file Dockerfile --tag chinaarjun/devtools:${{ github.ref_name	}}
     - name: Publish to Docker Repository
