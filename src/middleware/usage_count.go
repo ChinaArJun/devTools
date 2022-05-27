@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"oktools/src/model"
+	log "github.com/sirupsen/logrus"
 	"time"
 )
 
@@ -16,12 +16,13 @@ func init() {
 	go func() {
 		for {
 			select {
-			case path := <-channel:
-				// 使用次数 +1
-				model.ToolMap[path].UsageCount++
+			//case path := <-channel:
+			// 使用次数 +1
+			//model.ToolMap[path].UsageCount++
 			case <-timer.C:
 				// 使用次数写入数据库
-				model.UpdateUsageCount()
+				//log.Print("使用次数写入数据库")
+				//model.UpdateUsageCount()
 			}
 		}
 	}()

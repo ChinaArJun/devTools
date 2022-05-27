@@ -43,6 +43,7 @@ func InitRouter() *gin.Engine {
 	r.GET("/morse", contoller.Morse, middleware.UsageCount)
 	r.GET("/url", contoller.URL, middleware.UsageCount)
 	r.GET("/unicode", contoller.Unicode, middleware.UsageCount)
+	r.GET("/union_code", contoller.UnionCode, middleware.UsageCount)
 	r.GET("/mysqlgo", contoller.MYSQLGO, middleware.UsageCount)
 	r.GET("/json2go", contoller.JSON2GO, middleware.UsageCount)
 	r.GET("/json2xml", contoller.JSON2XML, middleware.UsageCount)

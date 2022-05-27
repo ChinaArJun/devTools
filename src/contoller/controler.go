@@ -122,6 +122,10 @@ func Unicode(c *gin.Context) {
 	c.HTML(http.StatusOK, "unicode.html", nil)
 }
 
+func UnionCode(c *gin.Context) {
+	c.HTML(http.StatusOK, "union_code.html", nil)
+}
+
 func MYSQLGO(c *gin.Context) {
 	c.HTML(http.StatusOK, "mysqlgo.html", nil)
 }

@@ -1,0 +1,63 @@
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : pgsql-localhost
+ Source Server Type    : PostgreSQL
+ Source Server Version : 110002
+ Source Host           : localhost:5432
+ Source Catalog        : oktools
+ Source Schema         : oktools
+
+ Target Server Type    : PostgreSQL
+ Target Server Version : 110002
+ File Encoding         : 65001
+
+ Date: 24/09/2019 12:51:40
+*/
+
+
+-- ----------------------------
+-- Table structure for toolshttps://item.m.jd.com/product/10024996935738.html?wxa_abtest=o&utm_source=iosapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=CopyURL&ad_od=share
+-- ----------------------------
+use oktools;
+CREATE TABLE `tools` (
+  `path` varchar(255) NOT NULL DEFAULT '' COMMENT '' ,
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '',
+  `icon` varchar(255) NOT NULL DEFAULT '' COMMENT '',
+  `category` int(64) NOT NULL DEFAULT 0,
+  `usage_count` int(64) NOT NULL DEFAULT 0
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='分类';
+
+-- ----------------------------
+-- Records of tools
+-- ----------------------------
+INSERT INTO `tools` VALUES ('/json2yaml', 'JSON/YAML转换', '', 0, 0);
+INSERT INTO `tools` VALUES ('/json2go', 'JSON转Go Struct', '', 0, 0);
+INSERT INTO `tools` VALUES ('/unicode', 'Unicode编码转换', '', 0, 0);
+INSERT INTO `tools` VALUES ('/url', 'URL编码解码', '', 0, 0);
+INSERT INTO `tools` VALUES ('/hash', 'Hash计算', '', 0, 0);
+INSERT INTO `tools` VALUES ('/morse', '摩斯电码', '', 0, 0);
+INSERT INTO `tools` VALUES ('/number', '进制转换', '', 0, 0);
+INSERT INTO `tools` VALUES ('/websocket', 'WebSocket测试', '', 0, 0);
+INSERT INTO `tools` VALUES ('/timestamp', 'Unix时间戳', '', 0, 0);
+INSERT INTO `tools` VALUES ('/regex', '正则表达式测试', '', 0, 0);
+INSERT INTO `tools` VALUES ('/qrcode', '二维码制作', '', 0, 0);
+INSERT INTO `tools` VALUES ('/ip', 'IP地址信息', '', 0, 0);
+INSERT INTO `tools` VALUES ('/file-hash', '文件Hash计算', '', 0, 0);
+INSERT INTO `tools` VALUES ('/rsa', 'RSA加密解密', '', 0, 0);
+INSERT INTO `tools` VALUES ('/des', 'DES加密解密', '', 0, 0);
+INSERT INTO `tools` VALUES ('/aes', 'AES加密解密', '', 0, 0);
+INSERT INTO `tools` VALUES ('/color', '颜色值转换', '', 0, 0);
+INSERT INTO `tools` VALUES ('/image2base64', '图片Base64编码', '', 0, 0);
+INSERT INTO `tools` VALUES ('/base64', 'Base64编码解码', '', 0, 0);
+INSERT INTO `tools` VALUES ('/json', 'JSON格式化', '', 0, 0);
+INSERT INTO `tools` VALUES ('/placeholder', 'SVG占位图', '', 0, 0);
+INSERT INTO `tools` VALUES ('/tinyimg', '图片压缩', '', 0, 0);
+INSERT INTO `tools` VALUES ('/json2xml', 'JSON/XML转换', '', 0, 0);
+INSERT INTO `tools` VALUES ('/clocks', 'CSS时钟', '', 0, 0);
+INSERT INTO `tools` VALUES ('/pdf2img', 'PDF转图片', '', 0, 0);
+INSERT INTO `tools` VALUES ('/fund', '基金数据', '', 0, 0);
+-- ----------------------------
+-- Primary Key structure for table tools
+-- ----------------------------
+ALTER TABLE `tools` ADD CONSTRAINT "tools_pkey" PRIMARY KEY ("path");
