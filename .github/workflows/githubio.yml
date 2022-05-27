@@ -13,6 +13,8 @@ jobs:
       run: go env -w GO111MODULE=on
     - name: tidy
       run: go mod tidy
+    - name: run main.go
+      run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go
     - name: BuildDockerImage
       run: docker build . --file Dockerfile --tag chinaarjun/devtools:${{ github.ref_name	}}
     - name: Publish to Docker Repository
