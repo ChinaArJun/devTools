@@ -4,6 +4,10 @@
 # wkhtmltopdf 操作指令: wkhtmltopdf https://www.csdn.net /Users/kevin/Desktop/csdn.pdf
 # imagemagick 操作指令：convert -density 200 -quality 100 test.pdf test.jpg
 
+FROM golang:alpine
+WORKDIR /app
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go
+
 FROM docker.io/jeanblanchard/alpine-glibc AS final
 
 WORKDIR /app

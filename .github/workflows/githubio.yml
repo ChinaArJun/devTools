@@ -1,0 +1,21 @@
+name: CI
+# 在master分支发生push事件时触发。
+on: 
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: BuildDockerImage
+        run: docker build . --file Dockerfile --tag ChinaArjun/devtools:${{ github.ref_name	 }}
+        - name: Publish to Docker Repository
+          uses: elgohr/Publish-Docker-Github-Action@master
+          with:
+            name: twwch/action-ci:${{ github.ref_name }}
+            repository: twwch/action-ci
+            username: ${{ secrets.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKER_PASSWORD }}
+            tag_semver: true
