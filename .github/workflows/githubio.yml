@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: BuildDockerImage
-      run: docker build . --file Dockerfile --tag ChinaArjun/devtools:${{ github.ref_name	}}
+      run: docker build . --file Dockerfile --tag chinaarjun/devtools:${{ github.ref_name	}}
     - name: Publish to Docker Repository
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
