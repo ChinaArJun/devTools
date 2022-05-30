@@ -19,7 +19,9 @@ jobs:
       run: docker build . --file Dockerfile --tag chinaarjun/devtools:${{ github.ref_name	}}
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v4
+
       with:
         name: chinaarjun/devtools:${{ github.ref_name	}}
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+        snapshot: true
