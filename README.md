@@ -56,4 +56,4 @@ r.GET("/pdf2img", contoller.PDF2IMG, middleware.UsageCount)
 
 ## License
 
-[MIT](https://github.com/chinaarjun/devTools/blob/LICENSE)
+[MIT](https://github.com/ChinaArJun/devTools/blob/master/LICENSE)

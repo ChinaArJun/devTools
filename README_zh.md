@@ -49,3 +49,8 @@
 ## 参考
 * [tools](https://github.com/wangyiwy/oktools)
 * [mysql](https://github.com)
+
+
+## License
+
+[MIT](https://github.com/ChinaArJun/devTools/blob/master/LICENSE)
