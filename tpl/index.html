@@ -1,49 +1,67 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>在线工具 - DevTools</title>
-    <link rel="shortcut icon" href="/favicon.ico">
-    <meta name="keywords" content="在线工具,工具,开发工具,二维码,JSON格式化,Unix时间戳,Base64,MD5,加密解密">
-    <meta name="description" content="DevTools是一个在线工具网站。提供二维码制作、JSON格式化、Unix时间戳转换、Base64编码、加密解密、图片压缩、IP查询、Hash计算等常用工具。">
-    <link rel="stylesheet" href="/static/css/style.css" type="text/css">
-</head>
-<body style="display:block;background:var(--color-accent)">
-<header>
-    <div class="container">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta
+      name="keywords"
+      content="在线工具,工具,开发工具,二维码,JSON格式化,Unix时间戳,Base64,MD5,加密解密"
+    />
+    <meta
+      name="description"
+      content="DevTools是一个在线工具网站。提供二维码制作、JSON格式化、Unix时间戳转换、Base64编码、加密解密、图片压缩、IP查询、Hash计算等常用工具。"
+    />
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css" />
+  </head>
+  <body style="display: block; background: var(--color-accent)">
+    <header>
+      <div class="container">
         <a class="logo" href="/"><strong>DevTools</strong></a>
         <nav>
-            <a class="nav-item" onclick="addFavorite()">加入收藏</a>
-            <a class="nav-item" target="_blank" href="https://support.qq.com/products/66960">留言反馈</a>
-            <a class="nav-item" href="https://github.com/ChinaArjun">关注我</a>
+          <a class="nav-item" onclick="addFavorite()">加入收藏</a>
+          <a
+            class="nav-item"
+            target="_blank"
+            href="https://support.qq.com/products/66960"
+            >留言反馈</a
+          >
+          <a class="nav-item" href="https://github.com/ChinaArjun">关注我</a>
         </nav>
+      </div>
+    </header>
+    <div class="container tools">
+      {{range .tools}}<a class="tool" href="{{.Path}}"
+        ><p>{{.Title}}</p>
+        <p>https://tools.zhequtao.com{{.Path}}</p></a
+      >{{end}}
     </div>
-</header>
-<div class="container tools">
-    {{range .tools}}<a class="tool" href="{{.Path}}"><p>{{.Title}}</p>
-        <p>https://tools.zhequtao.com{{.Path}}</p></a>{{end}}
-</div>
-<footer>
-    <p>Copyright © 2020 &nbsp;·&nbsp; 粤ICP备190111111号-1</p>
-</footer>
-<script>
-    function addFavorite() {
+    <footer>
+      <p>Copyright © 2020 &nbsp;·&nbsp; 粤ICP备190111111号-1</p>
+    </footer>
+    <script
+      defer
+      src="https://umami.zhequtao.com/script.js"
+      data-website-id="fb52803a-ff8e-417f-b631-d485b70e6a9c"
+    ></script>
+    <script>
+      function addFavorite() {
         try {
-            window.sidebar.addPanel(location.href, document.title, "");
+          window.sidebar.addPanel(location.href, document.title, "");
         } catch (e) {
-            try {
-                window.external.addFavorite(document.title, location.href)
-            } catch (e) {
-                alert("请使用快捷键Ctrl+D添加到收藏");
-            }
+          try {
+            window.external.addFavorite(document.title, location.href);
+          } catch (e) {
+            alert("请使用快捷键Ctrl+D添加到收藏");
+          }
         }
-    }
+      }
 
-    // var _hmt = _hmt || [];
-    // let hm = document.createElement("script");
-    // hm.src = "https://hm.baidu.com/hm.js?c2119bb06c09715e6b72ffb02a5597c7";
-    // let s = document.getElementsByTagName("script")[0];
-    // s.parentNode.insertBefore(hm, s);
-</script>
-</body>
+      // var _hmt = _hmt || [];
+      // let hm = document.createElement("script");
+      // hm.src = "https://hm.baidu.com/hm.js?c2119bb06c09715e6b72ffb02a5597c7";
+      // let s = document.getElementsByTagName("script")[0];
+      // s.parentNode.insertBefore(hm, s);
+    </script>
+  </body>
 </html>

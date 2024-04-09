@@ -6,3 +6,4 @@ script/release.go
 conf.yaml
 main
 oktools*
+tpl/index.html

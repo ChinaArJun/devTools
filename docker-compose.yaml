@@ -1,16 +1,9 @@
-version: '2.2'
+version: "2.2"
 services:
   oktools:
     image: tools:v1.0-master
     volumes:
-      - './oktools/:/app/'
+      - "./oktools/:/app/"
     container_name: oktools
     ports:
-      - '81:81'
-#  oktools:
-#    image: oktools:v1.0-master
-#    volumes:
-#      - '/data/wwwroot/tools.zhequtao.com/:/home/'
-#    container_name: oktools
-#    ports:
-#      - '81:81'
+      - "81:81"
