@@ -1,12 +1,10 @@
 package model
 
 import (
-	"bytes"
 	"fmt"
 	"github.com/jinzhu/gorm"
 	"log"
 	. "oktools/src/global"
-	"strconv"
 	"time"
 )
 
@@ -71,36 +69,36 @@ func loadTools() ([]Tool, error) {
 }
 
 func UpdateUsageCount() {
-	if len(ToolMap) == 0 {
-		log.Println("Tools map is empty , No need to update data!")
-		return
-	}
-
-	var buf bytes.Buffer
-	buf.WriteString("UPDATE tools SET usage_count = CASE path ")
-	for k, v := range ToolMap {
-		buf.WriteString(" WHEN '")
-		buf.WriteString(k)
-		buf.WriteString("' THEN ")
-		buf.WriteString(strconv.Itoa(v.UsageCount))
-	}
-	buf.WriteString(" END WHERE path IN(")
-
-	for k := range ToolMap {
-		buf.WriteString("'")
-		buf.WriteString(k)
-		buf.WriteString("'")
-		buf.WriteString(",")
-	}
-	buf.WriteString("'')")
-
-	sql := buf.String()
-	_, err := PSDB.Exec(sql)
-	if err != nil {
-		log.Println("Failed to update tools usage count data :", err)
-	}
-
-	log.Println(sql)
+	//if len(ToolMap) == 0 {
+	//	log.Println("Tools map is empty , No need to update data!")
+	//	return
+	//}
+	//
+	//var buf bytes.Buffer
+	//buf.WriteString("UPDATE tools SET usage_count = CASE path ")
+	//for k, v := range ToolMap {
+	//	buf.WriteString(" WHEN '")
+	//	buf.WriteString(k)
+	//	buf.WriteString("' THEN ")
+	//	buf.WriteString(strconv.Itoa(v.UsageCount))
+	//}
+	//buf.WriteString(" END WHERE path IN(")
+	//
+	//for k := range ToolMap {
+	//	buf.WriteString("'")
+	//	buf.WriteString(k)
+	//	buf.WriteString("'")
+	//	buf.WriteString(",")
+	//}
+	//buf.WriteString("'')")
+	//
+	//sql := buf.String()
+	//_, err := PSDB.Exec(sql)
+	//if err != nil {
+	//	log.Println("Failed to update tools usage count data :", err)
+	//}
+	//
+	//log.Println(sql)
 }
 
 func init() {
@@ -152,7 +150,7 @@ func (obj Tool) FieldList() (fieldList []string) {
 	return
 }
 
-//传递过来的json数据初始化
+// 传递过来的json数据初始化
 func (obj *Tool) Insert() (id int64, err error) {
 	err = obj.getDB().Create(&obj).Error
 	if err == nil {
@@ -172,7 +170,7 @@ func (obj *Tool) Update(id int64, updateData map[string]interface{}) (err error)
 	return
 }
 
-//删除数据
+// 删除数据
 func (obj *Tool) Delete(id int64) (err error) {
 	err = obj.Get(id)
 	if err != nil {
@@ -182,7 +180,7 @@ func (obj *Tool) Delete(id int64) (err error) {
 	return
 }
 
-//获取一个
+// 获取一个
 func (obj *Tool) Get(id int64) (err error) {
 	err = obj.getDB().First(&obj, id).Error
 	if err == nil {
@@ -191,7 +189,7 @@ func (obj *Tool) Get(id int64) (err error) {
 	return
 }
 
-//获取查询db
+// 获取查询db
 func (obj *Tool) QueryDB(db *gorm.DB, searchKey map[string]string) (returnDB *gorm.DB) {
 
 	// 查询扩展
@@ -221,7 +219,7 @@ func (obj *Tool) QueryOneByCondition(searchKey map[string]string) (err error) {
 	return
 }
 
-//列表
+// 列表
 func (obj *Tool) List(searchKey map[string]string, page int64, pageSize int64) (results []Tool, err error) {
 	db := obj.getDB()
 
@@ -262,7 +260,7 @@ func (obj *Tool) List(searchKey map[string]string, page int64, pageSize int64) (
 	return
 }
 
-//获取数量
+// 获取数量
 func (obj *Tool) Count(searchKey map[string]string) (totalSize int64, err error) {
 	db := obj.getDB().Where("deleted_at is null")
 	err = obj.QueryDB(db, searchKey).Count(&totalSize).Error
